@@ -1,0 +1,29 @@
+<div id="portfolio-compatible-preview" lang="ko">
+  <style>
+__STYLES__
+  </style>
+  <div id="portfolio-load-feedback" role="alert" hidden style="margin:20px;padding:20px;border:1px solid #b91c1c;border-radius:8px;background:#fef2f2;color:#1f2937"></div>
+  <div id="portfolio-compatible-app">
+    <p role="status" style="padding:24px">포트폴리오 화면을 불러오는 중입니다…</p>
+    <noscript>JavaScript가 꺼져 있습니다. 브라우저에서 JavaScript를 허용한 뒤 다시 열어주세요.</noscript>
+  </div>
+  <script>
+(() => {
+  // 초기 실행과 비동기 실행이 실패해도 빈 화면 대신 오류 정보를 표시한다.
+  const feedback = document.getElementById('portfolio-load-feedback');
+  function showFailure(message) {
+    feedback.hidden = false;
+    feedback.textContent = '화면을 불러오지 못했습니다. ' + message;
+    const loading = document.querySelector('#portfolio-compatible-app > [role="status"]');
+    if (loading) loading.hidden = true;
+  }
+  window.addEventListener('error', (event) => showFailure(event.message || '스크립트 실행 오류'));
+  window.addEventListener('unhandledrejection', (event) => showFailure(event.reason?.message || '비동기 처리 오류'));
+})();
+  </script>
+  <script>
+(() => {
+__SCRIPT__
+})();
+  </script>
+</div>

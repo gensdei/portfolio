@@ -1,0 +1,34 @@
+/* 아래 배치는 컴포넌트 확인용 화면에서만 사용한다. */
+.preview-label { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-block: 1rem; border-bottom: 1px solid var(--border); font-size: .8125rem; color: var(--muted); }
+.preview-label span:first-child { color: var(--secondary); font-weight: 600; }
+.hero { padding-block: 3rem; }
+.hero h1 { margin-block: 1rem 1.5rem; }
+.hero__eyebrow { font-size: .875rem; color: var(--secondary); }
+.hero__intro { margin-top: 1.5rem; line-height: 1.75; }
+.hero .tag-list { margin-top: 1.5rem; }
+.hero > .button { margin-top: 1.5rem; }
+.preview-section { border-top: 1px solid var(--border); }
+.preview-grid { display: grid; gap: 1.5rem; }
+.preview-panel { padding: 1.25rem; border: 1px solid var(--border); border-radius: .75rem; }
+.preview-panel > h3 { margin-bottom: 1rem; }
+.preview-panel > .button-group { align-items: start; }
+.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+.swatch { border: 1px solid var(--border); border-radius: .5rem; overflow: hidden; }
+.swatch__color { height: 4.5rem; background: var(--swatch); }
+.swatch__label { padding: .75rem; font-size: .875rem; }
+.swatch__label code { display: block; color: var(--muted); font-size: .75rem; }
+.results-summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block: 1.5rem .5rem; }
+.admin-preview { background: var(--surface); }
+.admin-editor { background: #fff; border: 1px solid var(--border); border-radius: .75rem; padding: 1.25rem; }
+.admin-editor > * + * { margin-top: 1.5rem; }
+.editor-actions { padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.preview-subheading { margin-block: 2rem 1rem; }
+.citation-detail > * + * { margin-top: .75rem; }
+.print-results { display: none; }
+@media (min-width: 48rem) { .preview-grid { grid-template-columns: 1fr 1fr; } .swatches { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 64rem) { .hero { padding-block: 5rem; } .hero__intro { font-size: 1.125rem; } .admin-editor { padding: 2rem; } }
+@media print {
+  .no-print, .screen-results { display: none !important; }
+  .print-results { display: block; }
+  .hero { padding-block: 1rem; }
+}

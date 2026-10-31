@@ -1,0 +1,14 @@
+# 운영체제와 편집기가 만드는 임시 파일을 제외한다.
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+
+# 비밀 설정과 개발 중 생성되는 파일은 업로드하지 않는다.
+.env
+.env.*
+!.env.example
+node_modules/
+*.log
+coverage/

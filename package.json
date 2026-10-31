@@ -1,0 +1,10 @@
+{
+  "name": "portfolio-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:preview": "node scripts/build-preview.mjs",
+    "dev": "python3 -m http.server 4173 --bind 127.0.0.1",
+    "check": "node scripts/check.mjs"
+  }
+}

@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Portfolio — 컴포넌트 미리보기</title></head><body style="margin:0">
+<div id="portfolio-compatible-preview" lang="ko">
+  <style>
+/* 전체 화면이 공유하는 색상과 크기 기준이다. */
+#portfolio-compatible-preview {
+  color-scheme: light;
+  --portfolio-primary: #17324d;
+  --portfolio-primary-hover: #10263b;
+  --portfolio-primary-pressed: #0b1c2d;
+  --portfolio-primary-soft: #edf2f7;
+  --portfolio-secondary: #0f766e;
+  --portfolio-secondary-hover: #115e59;
+  --portfolio-secondary-pressed: #134e4a;
+  --portfolio-secondary-soft: #e6f4f1;
+  --portfolio-background: #ffffff;
+  --portfolio-surface: #f6f8fa;
+  --portfolio-text: #1f2937;
+  --portfolio-muted: #526171;
+  --portfolio-border: #d8e0e7;
+  --portfolio-border-control: #758393;
+  --portfolio-focus: #0f766e;
+  --portfolio-disabled-bg: #e8edf2;
+  --portfolio-disabled-text: #526171;
+  --portfolio-success: #166534;
+  --portfolio-success-bg: #f0fdf4;
+  --portfolio-info: #1d4ed8;
+  --portfolio-info-bg: #eff6ff;
+  --portfolio-warning: #92400e;
+  --portfolio-warning-bg: #fffbeb;
+  --portfolio-danger: #b91c1c;
+  --portfolio-danger-bg: #fef2f2;
+  --portfolio-space-1: .25rem;
+  --portfolio-space-2: .5rem;
+  --portfolio-space-3: .75rem;
+  --portfolio-space-4: 1rem;
+  --portfolio-space-5: 1.5rem;
+  --portfolio-space-6: 2rem;
+  --portfolio-space-7: 3rem;
+  --portfolio-space-8: 4rem;
+  --portfolio-space-9: 5rem;
+  --portfolio-radius-control: .5rem;
+  --portfolio-radius-card: .75rem;
+  --portfolio-radius-dialog: 1rem;
+  --portfolio-content-max: 70rem;
+  --portfolio-reading-max: 45rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+#portfolio-compatible-preview { margin: 0; color: var(--portfolio-text); background: var(--portfolio-background); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-size: 1rem; line-height: 1.65; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+a { color: var(--portfolio-secondary); text-underline-offset: .2em; overflow-wrap: anywhere; }
+a:visited { color: var(--portfolio-primary); }
+a:hover { color: var(--portfolio-secondary-hover); }
+:focus-visible { outline: 3px solid var(--portfolio-focus); outline-offset: 3px; }
+:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 1.875rem; line-height: 1.35; letter-spacing: -.035em; color: var(--portfolio-primary); }
+h2 { font-size: 1.5rem; line-height: 1.45; letter-spacing: -.025em; }
+h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.55; }
+p + p { margin-top: 1rem; }
+img { display: block; max-width: 100%; height: auto; }
+main, section, article, nav, div { min-width: 0; }
+.container { width: 100%; max-width: calc(var(--portfolio-content-max) + 2.5rem); padding-inline: 1.25rem; margin-inline: auto; }
+.reading { max-width: var(--portfolio-reading-max); }
+.section { padding-block: 3rem; scroll-margin-top: 1.5rem; }
+.muted, .metadata { color: var(--portfolio-muted); }
+.metadata { font-size: .875rem; font-variant-numeric: tabular-nums; }
+.stack { display: grid; gap: 1rem; }
+.tag-list, .button-group { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.tag-list { gap: .5rem; }
+.long-value, .publication-title { overflow-wrap: anywhere; word-break: normal; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (min-width: 48rem) { .container { max-width: calc(var(--portfolio-content-max) + 4rem); padding-inline: 2rem; } }
+@media (min-width: 64rem) {
+  .container { max-width: calc(var(--portfolio-content-max) + 5rem); padding-inline: 2.5rem; }
+  .section { padding-block: 4rem; }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@page { size: A4; margin: 15mm; }
+@media print {
+  #portfolio-compatible-preview { font-size: 11pt; line-height: 1.55; }
+  *, *::before, *::after { color: #000 !important; background: transparent !important; box-shadow: none !important; }
+  .site-header, .button, .text-action, .search-filters, .pagination, .no-print, dialog { display: none !important; }
+  .container { max-width: none; padding: 0; }
+  .section { padding-block: 1rem; }
+  h1 { font-size: 24pt; } h2 { font-size: 18pt; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
+}
+
+/* 버튼은 최소 높이를 사용해 긴 문구와 글자 확대에 대응한다. */
+.button { display: inline-flex; justify-content: center; align-items: center; gap: .5rem; min-height: 3rem; padding: .625rem 1.25rem; border: 1px solid transparent; border-radius: var(--portfolio-radius-control); font-size: 1rem; font-weight: 600; line-height: 1.5; text-align: center; text-decoration: none; cursor: pointer; transition: background-color 150ms, border-color 150ms; }
+.button--primary, .button--primary:visited { background: var(--portfolio-primary); color: #fff; }
+.button--primary:hover { background: var(--portfolio-primary-hover); color: #fff; }
+.button--primary:active { background: var(--portfolio-primary-pressed); }
+.button--secondary, .button--secondary:visited { color: var(--portfolio-primary); border-color: var(--portfolio-primary); background: #fff; }
+.button--secondary:hover { background: var(--portfolio-primary-soft); color: var(--portfolio-primary); }
+.button--secondary:active { background: #dce5ee; }
+.button--teal { color: #fff; background: var(--portfolio-secondary); }
+.button--teal:hover { background: var(--portfolio-secondary-hover); color: #fff; }
+.button--teal:active { background: var(--portfolio-secondary-pressed); }
+.button--text { color: var(--portfolio-primary); background: transparent; }
+.button--text:hover { background: var(--portfolio-primary-soft); color: var(--portfolio-primary); }
+.button--text:active { background: #dce5ee; }
+.button--danger { color: var(--portfolio-danger); background: #fff; border-color: var(--portfolio-danger); }
+.button--danger:hover { background: var(--portfolio-danger-bg); color: var(--portfolio-danger); }
+.button--danger:active { background: #fee2e2; }
+.button--small { min-height: 2.75rem; padding-inline: .75rem; font-size: .875rem; }
+.button--large { min-height: 3.25rem; padding-inline: 1.5rem; }
+.button:disabled { color: var(--portfolio-disabled-text); background: var(--portfolio-disabled-bg); border-color: transparent; cursor: not-allowed; }
+.button[aria-busy="true"]::before { content: ""; width: .9rem; height: .9rem; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.badge { display: inline-block; max-width: 100%; padding: .25rem .625rem; border-radius: 999px; background: var(--portfolio-surface); color: var(--portfolio-muted); font-size: .8125rem; line-height: 1.5; font-weight: 600; }
+.badge--teal { background: var(--portfolio-secondary-soft); color: var(--portfolio-secondary); }
+.badge--success { background: var(--portfolio-success-bg); color: var(--portfolio-success); }
+.badge--warning { background: var(--portfolio-warning-bg); color: var(--portfolio-warning); }
+.badge--danger { background: var(--portfolio-danger-bg); color: var(--portfolio-danger); }
+.alert { --portfolio-alert-ink: var(--portfolio-info); --portfolio-alert-bg: var(--portfolio-info-bg); display: flex; align-items: flex-start; gap: .75rem; padding: 1rem; border-radius: .75rem; background: var(--portfolio-alert-bg); color: var(--portfolio-alert-ink); }
+.alert--success { --portfolio-alert-ink: var(--portfolio-success); --portfolio-alert-bg: var(--portfolio-success-bg); }
+.alert--warning { --portfolio-alert-ink: var(--portfolio-warning); --portfolio-alert-bg: var(--portfolio-warning-bg); }
+.alert--danger { --portfolio-alert-ink: var(--portfolio-danger); --portfolio-alert-bg: var(--portfolio-danger-bg); }
+.alert__symbol { display: grid; place-items: center; flex-shrink: 0; width: 1.5rem; height: 1.5rem; border: 1px solid currentColor; border-radius: 50%; font-weight: 700; }
+.alert > div { flex: 1; }
+.alert p { margin-top: .25rem; }
+.alert > .button { flex-shrink: 0; }
+.field { display: flex; flex-direction: column; gap: .5rem; }
+.field label { display: flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 600; }
+.field__required { font-size: .8125rem; color: var(--portfolio-muted); font-weight: 400; }
+.field-control { width: 100%; min-height: 3rem; padding: .625rem .875rem; background: #fff; color: var(--portfolio-text); border: 1px solid var(--portfolio-border-control); border-radius: var(--portfolio-radius-control); font-size: 1rem; }
+textarea.field-control { min-height: 11.25rem; resize: vertical; line-height: 1.75; }
+.field-control::placeholder { color: var(--portfolio-muted); opacity: 1; }
+.field-control[aria-invalid="true"] { border-color: var(--portfolio-danger); }
+.field__hint, .field__error { font-size: .875rem; margin: 0; }
+.field__hint { color: var(--portfolio-muted); }
+.field__error { color: var(--portfolio-danger); }
+.tabs__bar { display: flex; border-bottom: 1px solid var(--portfolio-border); gap: .5rem; }
+.tabs__bar button { min-height: 3rem; padding: .625rem 1rem; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--portfolio-muted); cursor: pointer; }
+.tabs__bar button[aria-selected="true"] { border-bottom-color: var(--portfolio-primary); color: var(--portfolio-primary); font-weight: 600; }
+.tabs__panel { padding-top: 1.5rem; }
+.dialog { width: calc(100% - 2.5rem); max-width: 30rem; max-height: calc(100dvh - 2.5rem); padding: 1.5rem; border: 1px solid var(--portfolio-border); border-radius: 1rem; box-shadow: 0 16px 48px rgb(23 50 77 / 18%); color: var(--portfolio-text); }
+.dialog::backdrop { background: rgb(11 28 45 / 45%); }
+.dialog > * + * { margin-top: 1rem; }
+.dialog h2 { font-size: 1.5rem; }
+.dialog .button-group { justify-content: flex-end; margin-top: 1.5rem; }
+.site-header { border-bottom: 1px solid var(--portfolio-border); }
+.header-inner { display: flex; flex-wrap: wrap; align-items: center; min-height: 4rem; gap: 1rem; padding-block: .75rem; }
+.site-name { flex: 1; font-size: 1.125rem; font-weight: 700; color: var(--portfolio-primary); text-decoration: none; }
+.header-actions { display: flex; align-items: center; gap: .5rem; }
+.site-nav { display: none; width: 100%; flex-direction: column; gap: .5rem; }
+.site-nav.is-open { display: flex; }
+.site-nav a { display: flex; align-items: center; min-height: 3rem; color: var(--portfolio-muted); text-decoration: none; padding: .5rem; border-bottom: 2px solid transparent; }
+.site-nav a[aria-current] { color: var(--portfolio-primary); border-bottom-color: var(--portfolio-primary); font-weight: 600; }
+.language-switch { display: flex; border: 1px solid var(--portfolio-border); border-radius: .5rem; padding: 2px; }
+.language-switch button { min-height: 2.75rem; padding: .5rem .625rem; border: 0; border-radius: .375rem; background: #fff; color: var(--portfolio-muted); font-size: .875rem; cursor: pointer; }
+.language-switch button[aria-pressed="true"] { background: var(--portfolio-primary); color: #fff; }
+.skip-link { position: absolute; top: .5rem; left: .5rem; z-index: 10; transform: translateY(-200%); padding: .75rem 1rem; color: #fff; background: var(--portfolio-primary); }
+.skip-link:focus { transform: none; }
+.section-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.section-heading__title { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
+.section-heading p { margin-top: .5rem; }
+.section-heading__link { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.research-card { padding: 1.25rem; border: 1px solid var(--portfolio-border); border-radius: .75rem; }
+.research-card > * + * { margin-top: .75rem; }
+.publication-title { font-size: 1.125rem; line-height: 1.55; }
+.publication-title a { color: var(--portfolio-text); }
+.publication-title a:hover { color: var(--portfolio-secondary); }
+.research-card__footer { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; }
+.text-action { min-height: 2.75rem; padding: .5rem 0; border: 0; background: transparent; color: var(--portfolio-secondary); font-size: .875rem; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+.text-action:hover { color: var(--portfolio-secondary-hover); }
+.publication-row { padding-block: 1.5rem; border-bottom: 1px solid var(--portfolio-border); }
+.publication-row > * + * { margin-top: .5rem; }
+.search-filters { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: end; padding: 1.25rem; background: var(--portfolio-surface); border-radius: .75rem; }
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; margin-top: 2rem; }
+.pagination button { min-width: 2.75rem; }
+.timeline { display: grid; gap: 1.5rem; padding: 0; list-style: none; }
+.timeline__item { display: grid; gap: .5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--portfolio-border); }
+.timeline__item h3 { margin-bottom: .25rem; }
+.patent-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.patent-table th, .patent-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--portfolio-border); }
+.patent-table th { background: var(--portfolio-surface); font-size: .875rem; }
+.empty-state { text-align: center; padding: 3rem 1.25rem; border: 1px dashed var(--portfolio-border-control); border-radius: .75rem; }
+.empty-state > * + * { margin-top: .75rem; }
+.skeleton-list { display: grid; gap: 1rem; }
+.skeleton__line { height: 1rem; border-radius: .25rem; background: var(--portfolio-primary-soft); margin-block: .75rem; }
+.skeleton__line--short { width: 40%; }
+.site-footer { margin-top: 2rem; border-top: 1px solid var(--portfolio-border); color: var(--portfolio-muted); font-size: .875rem; }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 1.5rem; }
+.footer-inner p { margin: 0; }
+@media (max-width: 47.999rem) {
+  .header-inner { column-gap: .5rem; }
+  .site-name { flex-basis: 100%; }
+  .header-actions { width: 100%; justify-content: space-between; }
+  .patent-table, .patent-table tbody, .patent-table tr, .patent-table td { display: block; width: 100%; }
+  .patent-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .patent-table tr { border-bottom: 1px solid var(--portfolio-border); padding-block: 1rem; }
+  .patent-table td { border: 0; padding: .25rem 0; }
+  .patent-table td::before { content: attr(data-label); display: inline-block; width: 6rem; font-size: .875rem; color: var(--portfolio-muted); }
+  .button-group > .button { flex: 1 1 100%; }
+}
+@media (min-width: 48rem) {
+  .search-filters { grid-template-columns: 1fr 1fr; }
+  .timeline__item { grid-template-columns: 11.25rem 1fr; gap: 1.5rem; }
+}
+@media (min-width: 64rem) {
+  .header-inner { min-height: 5rem; flex-wrap: nowrap; }
+  .site-name { font-size: 1.25rem; }
+  .header-actions { order: 3; }
+  .menu-toggle { display: none; }
+  .site-nav { display: flex; flex-direction: row; width: auto; gap: 1.25rem; }
+  .site-nav a { font-size: .875rem; }
+  .research-card { padding: 1.5rem; }
+  .publication-title { font-size: 1.25rem; }
+  .search-filters { padding: 1.5rem; grid-template-columns: minmax(0, 1fr) 10rem 11rem auto; }
+}
+
+/* 아래 배치는 컴포넌트 확인용 화면에서만 사용한다. */
+.preview-label { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-block: 1rem; border-bottom: 1px solid var(--portfolio-border); font-size: .8125rem; color: var(--portfolio-muted); }
+.preview-label span:first-child { color: var(--portfolio-secondary); font-weight: 600; }
+.hero { padding-block: 3rem; }
+.hero h1 { margin-block: 1rem 1.5rem; }
+.hero__eyebrow { font-size: .875rem; color: var(--portfolio-secondary); }
+.hero__intro { margin-top: 1.5rem; line-height: 1.75; }
+.hero .tag-list { margin-top: 1.5rem; }
+.hero > .button { margin-top: 1.5rem; }
+.preview-section { border-top: 1px solid var(--portfolio-border); }
+.preview-grid { display: grid; gap: 1.5rem; }
+.preview-panel { padding: 1.25rem; border: 1px solid var(--portfolio-border); border-radius: .75rem; }
+.preview-panel > h3 { margin-bottom: 1rem; }
+.preview-panel > .button-group { align-items: start; }
+.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+.swatch { border: 1px solid var(--portfolio-border); border-radius: .5rem; overflow: hidden; }
+.swatch__color { height: 4.5rem; background: var(--portfolio-swatch); }
+.swatch__label { padding: .75rem; font-size: .875rem; }
+.swatch__label code { display: block; color: var(--portfolio-muted); font-size: .75rem; }
+.results-summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block: 1.5rem .5rem; }
+.admin-preview { background: var(--portfolio-surface); }
+.admin-editor { background: #fff; border: 1px solid var(--portfolio-border); border-radius: .75rem; padding: 1.25rem; }
+.admin-editor > * + * { margin-top: 1.5rem; }
+.editor-actions { padding-top: 1.5rem; border-top: 1px solid var(--portfolio-border); }
+.preview-subheading { margin-block: 2rem 1rem; }
+.citation-detail > * + * { margin-top: .75rem; }
+.print-results { display: none; }
+@media (min-width: 48rem) { .preview-grid { grid-template-columns: 1fr 1fr; } .swatches { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 64rem) { .hero { padding-block: 5rem; } .hero__intro { font-size: 1.125rem; } .admin-editor { padding: 2rem; } }
+@media print {
+  .no-print, .screen-results { display: none !important; }
+  .print-results { display: block; }
+  .hero { padding-block: 1rem; }
+}
+
+  </style>
+  <div id="portfolio-load-feedback" role="alert" hidden style="margin:20px;padding:20px;border:1px solid #b91c1c;border-radius:8px;background:#fef2f2;color:#1f2937"></div>
+  <div id="portfolio-compatible-app">
+    <p role="status" style="padding:24px">포트폴리오 화면을 불러오는 중입니다…</p>
+    <noscript>JavaScript가 꺼져 있습니다. 브라우저에서 JavaScript를 허용한 뒤 다시 열어주세요.</noscript>
+  </div>
+  <script>
+(() => {
+  // 초기 실행과 비동기 실행이 실패해도 빈 화면 대신 오류 정보를 표시한다.
+  const feedback = document.getElementById('portfolio-load-feedback');
+  function showFailure(message) {
+    feedback.hidden = false;
+    feedback.textContent = '화면을 불러오지 못했습니다. ' + message;
+    const loading = document.querySelector('#portfolio-compatible-app > [role="status"]');
+    if (loading) loading.hidden = true;
+  }
+  window.addEventListener('error', (event) => showFailure(event.message || '스크립트 실행 오류'));
+  window.addEventListener('unhandledrejection', (event) => showFailure(event.reason?.message || '비동기 처리 오류'));
+})();
+  </script>
+  <script>
+(() => {
+let sequence = 0;
+
+// 라벨과 설명을 연결할 때 사용할 고유 식별자를 만든다.
+function uid(prefix = 'ui') { return `${prefix}-${++sequence}`; }
+
+// 콘텐츠는 문자열 삽입 대신 텍스트 노드로 넣어 실행 가능한 마크업을 막는다.
+function el(tag, attributes = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(attributes)) {
+    if (value === undefined || value === null || value === false) continue;
+    if (key === 'className') node.className = value;
+    else if (key.startsWith('on') && typeof value === 'function') node.addEventListener(key.slice(2).toLowerCase(), value);
+    else node.setAttribute(key, value === true ? '' : String(value));
+  }
+  for (const child of children.flat(Infinity)) {
+    if (child !== undefined && child !== null && child !== false) node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+  }
+  return node;
+}
+
+// 외부 데이터에서 받은 주소는 웹 주소와 페이지 내부 주소만 허용한다.
+function safeHref(value) {
+  if (typeof value !== 'string' || !value.trim()) throw new TypeError('이동 주소가 필요합니다.');
+  // 삽입형 미리보기의 기본 주소가 비어 있어도 내부 이동은 그대로 허용한다.
+  if (value.startsWith('#')) return value;
+  const url = new URL(value, document.baseURI);
+  if (!['http:', 'https:'].includes(url.protocol)) throw new TypeError('허용되지 않는 주소 형식입니다.');
+  return url.href;
+}
+
+
+function Button({ label, variant = 'primary', size = 'default', disabled = false, onClick, type = 'button' }) {
+  const node = el('button', { className: `button button--${variant} button--${size}`, type, disabled, onClick }, label);
+  // 처리 중에는 원래의 사용 가능 상태를 보존하고 중복 실행을 막는다.
+  node.setBusy = (busy, busyLabel = '처리 중…') => {
+    if (busy && !node.hasAttribute('aria-busy')) {
+      node.dataset.previousMinWidth = node.style.minWidth;
+      node.style.minWidth = `${node.getBoundingClientRect().width}px`;
+      node.dataset.previousDisabled = String(node.disabled);
+      node.disabled = true;
+      node.setAttribute('aria-busy', 'true');
+      node.textContent = busyLabel;
+    } else if (!busy && node.hasAttribute('aria-busy')) {
+      node.disabled = node.dataset.previousDisabled === 'true';
+      node.removeAttribute('aria-busy');
+      node.style.minWidth = node.dataset.previousMinWidth || '';
+      node.textContent = label;
+    }
+  };
+  return node;
+}
+
+function ButtonLink({ label, href, variant = 'primary', size = 'default' }) {
+  return el('a', { className: `button button--${variant} button--${size}`, href: safeHref(href) }, label);
+}
+
+
+function Badge({ label, tone = 'neutral' }) {
+  return el('span', { className: `badge badge--${tone}` }, label);
+}
+
+
+
+function Alert({ title, message, tone = 'info', dismissible = false }) {
+  const node = el('div', { className: `alert alert--${tone}`, role: tone === 'danger' ? 'alert' : 'status' },
+    el('span', { className: 'alert__symbol', 'aria-hidden': 'true' }, tone === 'success' ? '✓' : '!'),
+    el('div', {}, title ? el('strong', {}, title) : null, message ? el('p', {}, message) : null));
+  if (dismissible) node.append(Button({ label: '닫기', variant: 'text', size: 'small', onClick: () => node.remove() }));
+  return node;
+}
+
+
+function Field({ label, name, value = '', type = 'text', hint = '', required = false, placeholder = '', options }) {
+  const id = uid('field');
+  const control = el(options ? 'select' : type === 'textarea' ? 'textarea' : 'input', {
+    id, name, className: 'field-control', required, placeholder,
+    type: options || type === 'textarea' ? undefined : type,
+  });
+  if (options) for (const item of options) control.append(el('option', { value: item.value }, item.label));
+  control.value = value;
+  const help = hint ? el('p', { id: `${id}-hint`, className: 'field__hint' }, hint) : null;
+  const error = el('p', { id: `${id}-error`, className: 'field__error', hidden: true });
+  const node = el('div', { className: 'field' },
+    el('label', { for: id }, label, required ? el('span', { className: 'field__required' }, '필수') : null), control, help, error);
+  node.control = control;
+  node.setError = (message = '') => {
+    error.textContent = message;
+    error.hidden = !message;
+    control.setAttribute('aria-invalid', String(Boolean(message)));
+    const descriptions = [help?.id, message ? error.id : null].filter(Boolean);
+    if (descriptions.length) control.setAttribute('aria-describedby', descriptions.join(' '));
+    else control.removeAttribute('aria-describedby');
+  };
+  node.setError();
+  return node;
+}
+
+
+function Tabs({ label, items, onChange }) {
+  const id = uid('tabs');
+  const buttons = [];
+  const panels = [];
+  const bar = el('div', { role: 'tablist', 'aria-label': label, className: 'tabs__bar' });
+  function activate(index, moveFocus = false) {
+    buttons.forEach((button, i) => {
+      button.setAttribute('aria-selected', String(i === index));
+      button.tabIndex = i === index ? 0 : -1;
+      panels[i].hidden = i !== index;
+    });
+    if (moveFocus) buttons[index].focus();
+    onChange?.(items[index].value);
+  }
+  items.forEach((item, i) => {
+    const panel = el('section', { id: `${id}-panel-${i}`, role: 'tabpanel', 'aria-labelledby': `${id}-tab-${i}`, tabIndex: 0, className: 'tabs__panel' }, item.content);
+    const button = el('button', {
+      id: `${id}-tab-${i}`, type: 'button', role: 'tab', 'aria-controls': panel.id,
+      onClick: () => activate(i),
+      onKeydown: (event) => {
+        const targets = { ArrowRight: (i + 1) % items.length, ArrowLeft: (i + items.length - 1) % items.length, Home: 0, End: items.length - 1 };
+        if (event.key in targets) { event.preventDefault(); activate(targets[event.key], true); }
+      },
+    }, item.label);
+    buttons.push(button); panels.push(panel); bar.append(button);
+  });
+  const node = el('div', { className: 'tabs' }, bar, panels);
+  activate(0);
+  return node;
+}
+
+
+
+function Dialog({ title, description, content, confirmLabel = '확인', onConfirm, danger = false }) {
+  const id = uid('dialog');
+  let trigger;
+  const cancel = Button({ label: '취소', variant: 'secondary', onClick: () => node.close() });
+  const confirm = Button({ label: confirmLabel, variant: danger ? 'danger' : 'primary', onClick: async () => {
+    confirm.setBusy(true);
+    try { await onConfirm?.(); node.close(); }
+    catch { feedback.textContent = '작업을 완료하지 못했습니다. 다시 시도해주세요.'; }
+    finally { confirm.setBusy(false); }
+  } });
+  const feedback = el('p', { role: 'alert', className: 'field__error' });
+  const node = el('dialog', { className: 'dialog', 'aria-labelledby': `${id}-title`, 'aria-describedby': description ? `${id}-description` : undefined },
+    el('h2', { id: `${id}-title` }, title),
+    description ? el('p', { id: `${id}-description` }, description) : null,
+    content, feedback, el('div', { className: 'button-group' }, cancel, confirm));
+  // 기본 대화상자를 사용해 초점 제한과 Escape 닫기를 브라우저에 맡긴다.
+  node.openDialog = () => { trigger = document.activeElement; node.showModal(); cancel.focus(); };
+  node.addEventListener('close', () => trigger?.focus());
+  return node;
+}
+
+
+function LanguageSwitch({ value = 'ko', onChange }) {
+  const group = el('div', { className: 'language-switch', role: 'group', 'aria-label': '언어 / Language' });
+  const buttons = ['ko', 'en'].map((language) => {
+    const button = el('button', { type: 'button', lang: language, 'aria-pressed': String(value === language), onClick: () => {
+      buttons.forEach((item, i) => item.setAttribute('aria-pressed', String(['ko', 'en'][i] === language)));
+      onChange?.(language);
+    } }, language === 'ko' ? '한국어' : 'English');
+    group.append(button);
+    return button;
+  });
+  return group;
+}
+
+
+
+
+function Header({ name, links, active, language = 'ko', onLanguageChange }) {
+  const en = language === 'en';
+  const id = uid('navigation');
+  const nav = el('nav', { id, className: 'site-nav', 'aria-label': en ? 'Main navigation' : '주요 메뉴' },
+    links.map((link) => el('a', { href: safeHref(link.href), 'aria-current': link.id === active ? 'page' : undefined }, link.label)));
+  const menu = Button({ label: en ? 'Menu' : '메뉴', variant: 'secondary', size: 'small', onClick: () => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open));
+    nav.classList.toggle('is-open', open);
+  } });
+  menu.classList.add('menu-toggle');
+  menu.setAttribute('aria-controls', id);
+  menu.setAttribute('aria-expanded', 'false');
+  nav.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') { nav.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); menu.focus(); }
+  });
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) { nav.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); }
+  });
+  return el('header', { className: 'site-header' },
+    el('a', { href: '#main', className: 'skip-link' }, en ? 'Skip to content' : '본문 바로가기'),
+    el('div', { className: 'container header-inner' },
+      el('a', { href: '#intro', className: 'site-name' }, name),
+      el('div', { className: 'header-actions' }, LanguageSwitch({ value: language, onChange: onLanguageChange }), menu), nav));
+}
+
+
+function Footer({ updatedAt, note }) {
+  return el('footer', { className: 'site-footer' }, el('div', { className: 'container footer-inner' },
+    el('p', {}, updatedAt), note ? el('p', {}, note) : null));
+}
+
+
+
+function SectionHeading({ title, description, badge, href, linkLabel, id }) {
+  return el('div', { className: 'section-heading' },
+    el('div', {}, el('div', { className: 'section-heading__title' }, el('h2', { id, tabIndex: id ? -1 : undefined }, title), badge ? Badge({ label: badge }) : null),
+      description ? el('p', { className: 'muted' }, description) : null),
+    href ? el('a', { href: safeHref(href), className: 'section-heading__link' }, linkLabel, ' →') : null);
+}
+
+
+
+function ResearchCard({ paper, href, onOpen, language = 'ko', compact = false }) {
+  const title = href ? el('a', { href: safeHref(href) }, paper.title) : el('span', {}, paper.title);
+  const action = onOpen ? el('button', { type: 'button', className: 'text-action', onClick: () => onOpen(paper), 'aria-label': `${language === 'ko' ? '서지정보 보기' : 'View citation'}: ${paper.title}` }, language === 'ko' ? '서지정보 보기 →' : 'View citation →') : null;
+  return el('article', { className: compact ? 'publication-row' : 'research-card' },
+    el('p', { className: 'metadata' }, `${paper.year} · ${paper.journal} · ${paper.citation}`),
+    el('h3', { className: 'publication-title', lang: 'en' }, title),
+    paper.summary ? el('p', {}, paper.summary) : null,
+    el('div', { className: 'research-card__footer' }, el('div', { className: 'tag-list' }, paper.tags.map((label) => Badge({ label, tone: 'teal' }))), action));
+}
+
+
+
+
+function SearchFilters({ values = {}, years, topics, onSearch, language = 'ko' }) {
+  const en = language === 'en';
+  const search = Field({ label: en ? 'Search publications' : '논문 검색', name: 'q', value: values.q, type: 'search', placeholder: en ? 'Title, journal, keyword' : '논문 제목, 학술지, 키워드' });
+  const year = Field({ label: en ? 'Year' : '연도', name: 'year', value: values.year, options: [{ label: en ? 'All years' : '전체 연도', value: '' }, ...years.map((value) => ({ label: String(value), value: String(value) }))] });
+  const topic = Field({ label: en ? 'Research area' : '연구 분야', name: 'topic', value: values.topic, options: [{ label: en ? 'All areas' : '전체 분야', value: '' }, ...topics.map((value) => ({ label: value, value }))] });
+  // 제한된 삽입 화면에서도 외부 폼 전송 없이 검색 조건을 전달한다.
+  const apply = () => onSearch({ q: search.control.value, year: year.control.value, topic: topic.control.value });
+  const node = el('form', { className: 'search-filters', role: 'search', 'aria-label': en ? 'Publication filters' : '논문 검색 조건' }, search, year, topic,
+    Button({ label: en ? 'Search' : '검색', onClick: apply }));
+  node.addEventListener('submit', (event) => { event.preventDefault(); apply(); });
+  search.control.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); apply(); } });
+  return node;
+}
+
+
+
+function Pagination({ page = 1, total, pageSize = 20, onChange, language = 'ko' }) {
+  const count = Math.ceil(total / pageSize);
+  if (count < 2) return el('div');
+  const node = el('nav', { className: 'pagination', 'aria-label': language === 'ko' ? '결과 페이지' : 'Result pages' });
+  node.append(Button({ label: language === 'ko' ? '이전' : 'Previous', variant: 'secondary', size: 'small', disabled: page === 1, onClick: () => onChange(page - 1) }));
+  for (let i = 1; i <= count; i++) {
+    const button = Button({ label: String(i), size: 'small', variant: page === i ? 'primary' : 'text', onClick: () => onChange(i) });
+    button.setAttribute('aria-label', language === 'ko' ? `${i}페이지` : `Page ${i}`);
+    if (page === i) button.setAttribute('aria-current', 'page');
+    node.append(button);
+  }
+  node.append(Button({ label: language === 'ko' ? '다음' : 'Next', variant: 'secondary', size: 'small', disabled: page === count, onClick: () => onChange(page + 1) }));
+  return node;
+}
+
+
+function Timeline({ items, label }) {
+  return el('ol', { className: 'timeline', 'aria-label': label }, items.map((item) =>
+    el('li', { className: 'timeline__item' },
+      el('p', { className: 'metadata timeline__date' }, item.period),
+      el('div', {}, el('h3', {}, item.institution), el('p', {}, item.role), item.description ? el('p', { className: 'muted' }, item.description) : null))));
+}
+
+
+
+function PatentList({ items, language = 'ko' }) {
+  const en = language === 'en';
+  // 같은 표를 작은 화면에서 라벨이 있는 목록처럼 배치해 정보 중복을 피한다.
+  const labels = en ? ['Filing date', 'Application number', 'Status'] : ['출원일', '출원번호', '상태'];
+  return el('table', { className: 'patent-table' },
+    el('caption', { className: 'sr-only' }, en ? 'Patent application history' : '특허 출원 이력'),
+    el('thead', {}, el('tr', {}, labels.map((label) => el('th', { scope: 'col' }, label)))),
+    el('tbody', {}, items.map((item) => el('tr', {},
+      el('td', { 'data-label': labels[0] }, item.date),
+      el('td', { 'data-label': labels[1], className: 'long-value' }, item.number),
+      el('td', { 'data-label': labels[2] }, Badge({ label: en ? 'Filed' : '출원' }))))));
+}
+
+
+
+function EmptyState({ title, description, actionLabel, onAction }) {
+  return el('div', { className: 'empty-state' }, el('h3', {}, title),
+    description ? el('p', { className: 'muted' }, description) : null,
+    onAction ? Button({ label: actionLabel, variant: 'secondary', onClick: onAction }) : null);
+}
+
+
+function Skeleton({ label = '목록을 불러오는 중입니다', count = 3 }) {
+  return el('div', { role: 'status', className: 'skeleton-list' }, el('p', { className: 'sr-only' }, label),
+    Array.from({ length: count }, () => el('div', { className: 'research-card skeleton', 'aria-hidden': 'true' },
+      el('div', { className: 'skeleton__line skeleton__line--short' }), el('div', { className: 'skeleton__line' }), el('div', { className: 'skeleton__line' }))));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 사용자 제공 논문 목록을 사용하며 연구 분야 분류는 미리보기용 제안이다.
+const publications = [
+  {
+    "id": "PUB-01",
+    "year": 2025,
+    "title": "Evaluation of false positive and false negative errors in targeted next generation sequencing",
+    "journal": "Genome Biology",
+    "citation": "26(1):409",
+    "tags": [
+      "시퀀싱 오류 평가"
+    ]
+  },
+  {
+    "id": "PUB-02",
+    "year": 2025,
+    "title": "Proteogenomic characterization of molecular and cellular targets for treatment-resistant subtypes in locally advanced cervical cancers",
+    "journal": "Molecular Cancer",
+    "citation": "24(1):77",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-03",
+    "year": 2024,
+    "title": "Enhancing Clinical Applications by Evaluation of Sensitivity and Specificity in Whole Exome Sequencing",
+    "journal": "International Journal of Molecular Sciences",
+    "citation": "25(24):13250",
+    "tags": [
+      "시퀀싱 오류 평가"
+    ]
+  },
+  {
+    "id": "PUB-04",
+    "year": 2024,
+    "title": "Prognostic Model for High-Grade Neuroendocrine Carcinoma of the Lung Incorporating Genomic Profiling and Poly (ADP-ribose) Polymerase-1 Expression",
+    "journal": "JCO Precision Oncology",
+    "citation": "8:e2300495",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-05",
+    "year": 2021,
+    "title": "Rapid androgen-responsive proteome is involved in prostate cancer progression",
+    "journal": "Biomedicines",
+    "citation": "9(12):1877",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-06",
+    "year": 2021,
+    "title": "Characterization of proteins regulated by androgen and protein kinase A signaling in VCaP prostate Cancer Cells",
+    "journal": "Biomedicines",
+    "citation": "9(10):1404",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-07",
+    "year": 2021,
+    "title": "Local adenoviral delivery of soluble CD200R-Ig enhances antitumor immunity by inhibiting CD200-b-catenin-driven M2 macrophage",
+    "journal": "Molecular Therapy-Oncolytics",
+    "citation": "23:138–150",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-08",
+    "year": 2021,
+    "title": "Preclinical evaluation of radiation therapy of BRCA1-associated mammary tumors using a mouse model",
+    "journal": "International Journal of Biological Sciences",
+    "citation": "17(3):689–701",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-09",
+    "year": 2020,
+    "title": "Pan-cancer analysis of whole genomes identifies driver rearrangements promoted by LINE-1 retrotransposition",
+    "journal": "Nature Genetics",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-10",
+    "year": 2020,
+    "title": "Phosphorylation of OCT4 Serine 236 Inhibits Germ Cell Tumor Growth by Inducing Differentiation",
+    "journal": "Cancers",
+    "citation": "12(9):E2601",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-11",
+    "year": 2020,
+    "title": "Disruption of chromatin folding domains by somatic genomic rearrangements in human cancer",
+    "journal": "Nature Genetics",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-12",
+    "year": 2020,
+    "title": "Butler enables rapid cloud-based analysis of thousands of human genomes",
+    "journal": "Nature Biotechnology",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-13",
+    "year": 2020,
+    "title": "Patterns of somatic structural variation in human cancer genomes",
+    "journal": "Nature",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-14",
+    "year": 2020,
+    "title": "The landscape of viral associations in human cancers",
+    "journal": "Nature Genetics",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-15",
+    "year": 2020,
+    "title": "Genomic basis for RNA alterations in cancer",
+    "journal": "Nature",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-16",
+    "year": 2020,
+    "title": "The evolutionary history of 2,658 cancers",
+    "journal": "Nature",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-17",
+    "year": 2020,
+    "title": "The repertoire of mutational signatures in human cancer",
+    "journal": "Nature",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-18",
+    "year": 2020,
+    "title": "comprehensive analysis of chromothripsis in 2,658 human cancers using whole-genome sequencing",
+    "journal": "Nature Genetics",
+    "citation": "권·호·페이지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-19",
+    "year": 2020,
+    "title": "Combined burden and functional impact tests for cancer driver discovery using DriverPower",
+    "journal": "Nature Communications",
+    "citation": "11(1):734",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-20",
+    "year": 2020,
+    "title": "Integrative pathway enrichment analysis of multivariate omics data",
+    "journal": "Nature Communications",
+    "citation": "11(1):735",
+    "tags": [
+      "네트워크 생물학"
+    ]
+  },
+  {
+    "id": "PUB-21",
+    "year": 2020,
+    "title": "Cancer LncRNA Census reveals evidence for deep functional conservation of long noncoding RNAs in tumorigenesis",
+    "journal": "Communications Biology",
+    "citation": "3(1):56",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-22",
+    "year": 2020,
+    "title": "Pan-cancer analysis of whole genomes",
+    "journal": "Nature",
+    "citation": "578(7793):82–93",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-23",
+    "year": 2020,
+    "title": "Pathway and network analysis of more than 2500 whole cancer genomes",
+    "journal": "Nature Communications",
+    "citation": "11(1):729",
+    "tags": [
+      "네트워크 생물학"
+    ]
+  },
+  {
+    "id": "PUB-24",
+    "year": 2020,
+    "title": "Analyses of non-coding somatic drivers in 2,658 cancer whole genomes",
+    "journal": "Nature",
+    "citation": "578(7793):102–111",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-25",
+    "year": 2019,
+    "title": "CD200 Induces Epithelial-to-Mesenchymal Transition in Head and Neck Squamous Cell Carcinoma via β-Catenin-Mediated Nuclear Translocation",
+    "journal": "Cancers",
+    "citation": "11(10):1583",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-26",
+    "year": 2019,
+    "title": "False-negative errors in next-generation sequencing contribute substantially to inconsistency of mutation databases",
+    "journal": "PLOS ONE",
+    "citation": "14(9):e0222535",
+    "tags": [
+      "시퀀싱 오류 평가"
+    ]
+  },
+  {
+    "id": "PUB-27",
+    "year": 2018,
+    "title": "Farnesyl diphosphate synthase is important for the maintenance of glioblastoma stemness",
+    "journal": "Experimental & Molecular Medicine",
+    "citation": "50(1):137",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-28",
+    "year": 2018,
+    "title": "Cyclin B1 stability is increased by interaction with BRCA1, and its overexpression suppresses the progression of BRCA1-associated mammary tumors",
+    "journal": "Experimental & Molecular Medicine",
+    "citation": "50(10):136",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-29",
+    "year": 2018,
+    "title": "Inhibition of Estrogen signaling reduces the incidence of BRCA1-associated mammary tumor formation",
+    "journal": "International Journal of Biological Sciences",
+    "citation": "14(12):1755–1768",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-30",
+    "year": 2018,
+    "title": "Inhibition of AKT suppresses the initiation and progression of BRCA1-associated mammary tumors",
+    "journal": "International Journal of Biological Sciences",
+    "citation": "14(13):1769–1781",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-31",
+    "year": 2018,
+    "title": "OCT4 directly regulates stemness and extracellular matrix-related genes in human germ cell tumours",
+    "journal": "Biochemical and Biophysical Research Communications",
+    "citation": "503(3):1980–1986",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-32",
+    "year": 2016,
+    "title": "Migration and invasion of drug-resistant lung adenocarcinoma cells are dependent on mitochondrial activity.",
+    "journal": "Experimental and Molecular Medicine",
+    "citation": "48(12):e277",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  },
+  {
+    "id": "PUB-33",
+    "year": 2015,
+    "title": "Mitotic cell death caused by follistatin-like 1 inhibition is associated with up-regulated Bim by inactivated Erk1/2 in human lung cancer cells",
+    "journal": "Oncotarget",
+    "citation": "원자료 Online Published; 상세 서지 추후 확인",
+    "tags": [
+      "암 유전체·분자생물학"
+    ]
+  }
+];
+
+const patents = [
+  {
+    "date": "2026.08.13",
+    "number": "25745265.6"
+  },
+  {
+    "date": "2026.07.24",
+    "number": "19/609,148"
+  },
+  {
+    "date": "2026.07.23",
+    "number": "2026-544898"
+  },
+  {
+    "date": "2026.07.23",
+    "number": "202580011386.2"
+  },
+  {
+    "date": "2025.01.24",
+    "number": "10-2025-0011957"
+  },
+  {
+    "date": "2025.01.24",
+    "number": "PCT/KR2025/001552"
+  },
+  {
+    "date": "2024.01.26",
+    "number": "10-2024-0012706"
+  }
+];
+
+
+
+
+const app = document.getElementById('portfolio-compatible-app');
+let queryState = new URLSearchParams(location.search);
+const params = () => new URLSearchParams(queryState);
+let language = params().get('lang') === 'en' ? 'en' : 'ko';
+const drafts = { ko: '생물정보학과 계산생물학을 연구하며, 기계학습·신호처리·네트워크 생물학에 관심을 두고 있습니다.', en: 'My research interests span bioinformatics and computational biology, with a focus on machine learning, signal processing, and network biology.' };
+const t = (ko, en) => language === 'ko' ? ko : en;
+
+// 주소의 검색 조건을 단일 상태로 사용해 새로고침과 뒤로 가기를 지원한다.
+function updateUrl(changes) {
+  const url = new URL(location.href);
+  for (const [key, value] of Object.entries(changes)) {
+    if (value === '' || value === null) url.searchParams.delete(key);
+    else url.searchParams.set(key, String(value));
+  }
+  queryState = new URLSearchParams(url.search);
+  // 대화 안의 제한된 미리보기에서는 주소 변경 없이 검색 상태를 유지한다.
+  try { history.pushState(null, '', url); }
+  catch (error) { if (error.name !== 'SecurityError') throw error; }
+}
+
+function openCitation(paper) {
+  const dialog = Dialog({
+    title: t('논문 서지정보', 'Publication citation'),
+    description: t('사용자 제공 목록을 반영한 컴포넌트 예시입니다. DOI·개인 기여도는 아직 입력되지 않았습니다.', 'This component uses the supplied publication list. DOI and individual contributions have not been provided.'),
+    content: el('div', { className: 'citation-detail' }, el('h3', { lang: 'en' }, paper.title), el('p', { className: 'metadata' }, `${paper.year} · ${paper.journal} · ${paper.citation}`)),
+    confirmLabel: t('확인', 'Done'),
+  });
+  document.body.append(dialog);
+  dialog.addEventListener('close', () => dialog.remove(), { once: true });
+  dialog.openDialog();
+}
+
+function makeLibrary() {
+  const root = el('div');
+  function render(focus = false) {
+    const query = params();
+    const values = { q: query.get('q') || '', year: query.get('year') || '', topic: query.get('topic') || '' };
+    const rows = publications.filter((paper) => (!values.year || String(paper.year) === values.year)
+      && (!values.topic || paper.tags.includes(values.topic))
+      && `${paper.title} ${paper.journal} ${paper.tags.join(' ')}`.toLowerCase().includes(values.q.trim().toLowerCase()));
+    const page = Math.min(Math.max(1, Number.parseInt(query.get('page'), 10) || 1), Math.max(1, Math.ceil(rows.length / 20)));
+    const apply = (changes) => { updateUrl(changes); render(true); };
+    const reset = () => apply({ q: '', year: '', topic: '', page: '' });
+    const heading = SectionHeading({ title: t('전체 연구·논문', 'All publications'), id: 'results-title', description: t('제공된 논문 33편 · 연구 분야 분류는 검토용 제안입니다.', '33 supplied publications · Topic assignments are draft suggestions.') });
+    root.replaceChildren(heading,
+      SearchFilters({ values, years: [...new Set(publications.map((p) => p.year))], topics: [...new Set(publications.flatMap((p) => p.tags))], language, onSearch: (next) => apply({ ...next, page: '' }) }),
+      el('div', { className: 'results-summary' }, el('p', { role: 'status' }, t(`검색 결과 ${rows.length}편`, `${rows.length} publications found`)),
+        Button({ label: t('조건 초기화', 'Clear filters'), variant: 'text', size: 'small', onClick: reset })),
+      el('div', { className: 'screen-results' }, rows.length ? rows.slice((page - 1) * 20, page * 20).map((paper) => ResearchCard({ paper, compact: true, language, onOpen: openCitation })) : EmptyState({ title: t('조건에 맞는 연구가 없습니다', 'No publications match these filters'), actionLabel: t('조건 초기화', 'Clear filters'), onAction: reset })),
+      el('div', { className: 'print-results' }, rows.map((paper) => ResearchCard({ paper, compact: true }))),
+      Pagination({ page, total: rows.length, language, onChange: (next) => apply({ page: next }) }));
+    if (focus) root.querySelector('#results-title').focus();
+  }
+  render();
+  root.refresh = render;
+  return root;
+}
+
+function makeEditor() {
+  const output = el('div', { className: 'stack', 'aria-live': 'polite' });
+  const fields = {};
+  const editor = el('form', { className: 'admin-editor', onSubmit: (event) => event.preventDefault() });
+  const languages = [{ value: 'ko', label: '한국어' }, { value: 'en', label: 'English' }];
+  const tabs = Tabs({ label: t('자기소개 편집 언어', 'Biography language'), items: languages.map(({ value, label }) => {
+    const field = Field({ label: value === 'ko' ? '자기소개' : 'Biography', name: `bio-${value}`, type: 'textarea', value: drafts[value], required: true, hint: value === 'ko' ? '이 예시는 현재 탭의 메모리에서만 초안을 보관합니다.' : 'This preview keeps drafts only in this tab’s memory.' });
+    fields[value] = field;
+    field.control.addEventListener('input', () => { drafts[value] = field.control.value; field.setError(); });
+    return { value, label, content: field };
+  }) });
+  function validate() {
+    let valid = true;
+    for (const key of Object.keys(fields)) {
+      const empty = !fields[key].control.value.trim();
+      fields[key].setError(empty ? (key === 'ko' ? '자기소개를 입력해주세요.' : 'Please enter a biography.') : '');
+      valid = valid && !empty;
+    }
+    if (!valid) {
+      output.replaceChildren(Alert({ tone: 'danger', title: t('입력 내용을 확인해주세요', 'Check the form'), message: t('한국어와 영어 탭의 필수 항목을 확인해주세요.', 'Check the required fields in both language tabs.') }));
+      for (const key of Object.keys(fields)) if (fields[key].control.getAttribute('aria-invalid') === 'true') {
+        const index = key === 'ko' ? 0 : 1;
+        tabs.querySelectorAll('[role="tab"]')[index].click();
+        fields[key].control.focus(); break;
+      }
+    }
+    return valid;
+  }
+  const save = Button({ label: t('초안 저장 예시', 'Try draft save'), variant: 'secondary', onClick: async () => {
+    if (!validate()) return;
+    save.setBusy(true, t('저장 중…', 'Saving…'));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    output.replaceChildren(Alert({ tone: 'success', title: t('메모리에 초안을 보관했습니다', 'Draft held in memory'), message: t('새로고침하면 초기화됩니다. 실제 서버 저장이나 공개 게시는 수행하지 않습니다.', 'Reloading resets this demo. No server write or publication was performed.'), dismissible: true }));
+    save.setBusy(false);
+  } });
+  const preview = Button({ label: t('미리보기', 'Preview'), variant: 'secondary', onClick: () => {
+    if (!validate()) return;
+    const dialog = Dialog({ title: t('자기소개 미리보기', 'Biography preview'), description: t('현재 입력한 초안이며 공개되지 않습니다.', 'This is an unpublished draft.'), content: el('p', {}, drafts[language]), confirmLabel: t('확인', 'Done') });
+    document.body.append(dialog);
+    dialog.addEventListener('close', () => dialog.remove(), { once: true });
+    dialog.openDialog();
+  } });
+  editor.append(Alert({ title: t('관리자 UI 예시', 'Admin UI preview'), message: t('실제 인증·게시 연결 전 단계입니다. 본인만 편집하는 권한 검사는 서버 구현 시 연결해야 합니다.', 'Authentication and publication are not connected. Owner authorization must be enforced on the server.') }),
+    el('div', { className: 'tag-list' }, Badge({ label: t('초안', 'Draft') }), Badge({ label: t('번역 검토 전', 'Translation pending') })), tabs, output,
+    el('div', { className: 'editor-actions button-group' }, save, preview, Button({ label: t('게시 · 서버 연결 필요', 'Publish · server required'), disabled: true })));
+  return editor;
+}
+
+function makeShowcase() {
+  const swatches = [['주요 색상', '--portfolio-primary', '#17324D'], ['보조 색상', '--portfolio-secondary', '#0F766E'], ['기본 본문', '--portfolio-text', '#1F2937'], ['보조 배경', '--portfolio-surface', '#F6F8FA']];
+  const colors = el('div', { className: 'swatches' }, swatches.map(([label, token, hex]) =>
+    el('div', { className: 'swatch' }, el('div', { className: 'swatch__color', style: `--portfolio-swatch: var(${token})` }), el('div', { className: 'swatch__label' }, label, el('code', {}, hex)))));
+  const demoOutput = el('div', { className: 'stack' });
+  const panel = el('div', { className: 'preview-panel' }, el('h3', {}, t('버튼 · 상태 · 크기', 'Buttons · states · sizes')),
+    el('div', { className: 'button-group' },
+      ['primary', 'secondary', 'teal', 'text', 'danger'].map((variant) => Button({ label: ({ primary: '주요 버튼', secondary: '보조 버튼', teal: '청록 버튼', text: '텍스트 버튼', danger: '위험 행동' })[variant], variant, onClick: () => demoOutput.replaceChildren(Alert({ tone: 'info', message: `${variant} 버튼을 선택했습니다.`, dismissible: true })) })),
+      Button({ label: '작은 버튼 · 44px', size: 'small', variant: 'secondary' }), Button({ label: '큰 버튼 · 52px', size: 'large' }), Button({ label: '비활성 버튼', disabled: true })), demoOutput);
+  const loading = Button({ label: '저장', variant: 'secondary' });
+  loading.setBusy(true, '저장 중…');
+  panel.querySelector('.button-group').append(loading);
+  const alerts = el('div', { className: 'stack' },
+    Alert({ tone: 'success', title: '초안 저장됨', message: '공개본은 변경되지 않았습니다.' }),
+    Alert({ tone: 'warning', title: '저장하지 않은 변경사항', message: '화면을 나가기 전에 입력 내용을 확인해주세요.' }),
+    Alert({ tone: 'danger', title: '저장 실패', message: '입력 내용은 유지됩니다. 다시 시도해주세요.' }));
+  const required = Field({ label: '필수 입력 예시', name: 'example', required: true, hint: '이름과 라벨을 연결한 입력 컴포넌트입니다.' });
+  required.setError('필수 항목을 입력해주세요.');
+  const confirm = Dialog({ title: '휴지통으로 이동할까요?', description: '컴포넌트 동작 확인용입니다. 실제 데이터는 삭제하지 않습니다.', confirmLabel: '휴지통으로 이동', danger: true, onConfirm: () => demoOutput.replaceChildren(Alert({ tone: 'success', message: '대화상자 확인 동작이 완료되었습니다. 실제 삭제는 수행하지 않았습니다.' })) });
+  const dialogButton = Button({ label: '확인 대화상자 열기', variant: 'danger', onClick: () => confirm.openDialog() });
+  return el('div', { className: 'stack' }, colors, panel, el('div', { className: 'preview-grid' }, el('div', { className: 'preview-panel stack' }, el('h3', {}, '입력·확인 대화상자'), required, dialogButton, confirm), alerts),
+    el('div', { className: 'preview-grid' }, EmptyState({ title: '조건에 맞는 연구가 없습니다', description: '검색 조건을 바꾸거나 초기화해주세요.' }), Skeleton({ count: 1 })));
+}
+
+let library;
+function render() {
+  document.getElementById('portfolio-compatible-preview').lang = language;
+  library = makeLibrary();
+  const main = el('main', { id: 'main', tabIndex: -1 },
+    el('div', { className: 'container' },
+      el('div', { className: 'preview-label no-print' }, el('span', {}, 'PORTFOLIO / UI LIBRARY'), t('컴포넌트 미리보기 · 디자인 가이드 v1.0', 'Component preview · Design guide v1.0')),
+      el('section', { id: 'intro', className: 'hero' },
+        el('p', { className: 'hero__eyebrow', lang: 'en' }, 'Bioinformatics · Computational Biology'),
+        el('h1', { className: 'reading' }, t('생물정보학과 계산생물학으로 생명 데이터를 이해합니다.', 'Understanding biological data through bioinformatics and computational biology.')),
+        el('p', { className: 'metadata' }, t('[이름 입력] · 소속·직함 입력 예정', '[Name] · Affiliation and title to be confirmed')),
+        el('p', { className: 'reading hero__intro' }, drafts[language]),
+        el('div', { className: 'tag-list' }, [t('기계학습', 'Machine Learning'), t('신호처리', 'Signal Processing'), t('네트워크 생물학', 'Network Biology')].map((label) => Badge({ label, tone: 'teal' }))),
+        ButtonLink({ label: t('전체 작업물 보기 →', 'Explore publications →'), href: '#works', size: 'large' })),
+      el('section', { className: 'section', 'aria-labelledby': 'featured-title' },
+        SectionHeading({ title: t('대표 연구', 'Featured research'), badge: t('선정안', 'Draft selection'), id: 'featured-title', href: '#works', linkLabel: t('전체 연구 보기', 'View all research') }),
+        el('div', { className: 'stack' }, ['PUB-01', 'PUB-02', 'PUB-23'].map((id) => ResearchCard({ paper: publications.find((paper) => paper.id === id), language, onOpen: openCitation })))),
+      el('section', { id: 'works', className: 'section preview-section' }, library),
+      el('section', { id: 'career', className: 'section preview-section' }, SectionHeading({ title: t('학력·경력', 'Education & experience'), description: t('컴포넌트 예시로 일부 이력을 표시합니다.', 'Selected entries for component demonstration.') }),
+        Timeline({ label: t('학력·경력 예시', 'Example history'), items: language === 'ko' ? [{ period: '2019.02–현재', institution: '국립암센터 유전체분석팀', role: '연구원' }, { period: '2012.04–2013.04', institution: '이화여자대학교', role: '연구교수' }, { period: '2003.03–2009.02', institution: '한양대학교 생물정보학과', role: '박사' }] : [{ period: '2003.03–2009.02', institution: '한양대학교 생물정보학과', role: '박사 · Official English wording pending' }] })),
+      el('section', { id: 'patents', className: 'section preview-section' }, SectionHeading({ title: t('특허 출원', 'Patent applications'), description: t('DNA 혼합물을 이용한 차세대 염기서열분석의 위양성 및 위음성 오류 분석 방법 · 동일 제목 발명의 출원 이력 7건', '7 application records under the same supplied invention title. Official English title pending.') }), PatentList({ items: patents, language })),
+      el('section', { id: 'components', className: 'section preview-section no-print' }, SectionHeading({ title: t('기본 컴포넌트', 'Component library'), description: t('같은 테마를 공유하는 색상·버튼·입력·상태 요소입니다.', 'Shared theme primitives and interaction states.') }), makeShowcase())),
+    el('section', { id: 'editor', className: 'section admin-preview no-print' }, el('div', { className: 'container' }, SectionHeading({ title: t('자기소개 편집 컴포넌트', 'Biography editor component'), description: t('실제 관리자 인증을 연결하기 전의 동작 예시입니다.', 'Interaction example before server authentication is connected.') }), makeEditor())));
+  app.replaceChildren(Header({ name: t('연구자 포트폴리오', 'Research portfolio'), language, active: 'intro', links: [{ id: 'intro', label: t('소개', 'About'), href: '#intro' }, { id: 'works', label: t('연구·논문', 'Publications'), href: '#works' }, { id: 'career', label: t('학력·경력', 'Career'), href: '#career' }, { id: 'patents', label: t('특허', 'Patents'), href: '#patents' }], onLanguageChange: (next) => {
+    language = next; updateUrl({ lang: next }); render();
+    app.querySelector(`.language-switch button[lang="${next}"]`).focus();
+  } }), main, Footer({ updatedAt: t('마지막 업데이트 · 2026.10.31', 'Updated · 2026.10.31'), note: t('컴포넌트 미리보기 · 외부 공개·서버 저장 없음', 'Component preview · No publishing or server persistence') }));
+}
+window.addEventListener('popstate', () => { queryState = new URLSearchParams(location.search); language = params().get('lang') === 'en' ? 'en' : 'ko'; render(); });
+render();
+
+})();
+  </script>
+</div>
+
+</body></html>
